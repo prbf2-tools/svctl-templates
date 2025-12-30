@@ -40,6 +40,8 @@ maxPlayers: 64
 votingEnabled: 1
 demoEnabled: 0
 demoQuality: 1
+demoIndexURL: "http://"
+demoDownloadURL : "http://"
 
 welcomeMessage: "Welcome to a Project Reality server!"
 sponsorText: "Welcome to a Project Reality server!|pr_maplist"
