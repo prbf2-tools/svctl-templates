@@ -1,0 +1,877 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "$ref": "#/definitions/PRConfig",
+  "definitions": {
+    "PRConfig": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "murmurIP": {
+          "type": "string"
+        },
+        "murmurPort": {
+          "type": "integer"
+        },
+        "murmurSecret": {
+          "type": "string"
+        },
+        "portGame": {
+          "type": "integer"
+        },
+        "portGamespy": {
+          "type": "integer"
+        },
+        "portPrism": {
+          "type": "integer"
+        },
+        "reservedSlotsNum": {
+          "type": "integer"
+        },
+        "reservedSlots": {
+          "type": "array",
+          "items": {}
+        },
+        "maplistRaw": {
+          "type": "string"
+        },
+        "maplist": {
+          "type": "array",
+          "items": {}
+        },
+        "countryflag": {
+          "type": "string"
+        },
+        "ip": {
+          "type": "string"
+        },
+        "externalIP": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "internet": {
+          "type": "integer"
+        },
+        "sponsorLogoURL": {
+          "type": "string"
+        },
+        "communityLogoURL": {
+          "type": "string"
+        },
+        "maxPlayers": {
+          "type": "integer"
+        },
+        "votingEnabled": {
+          "type": "integer"
+        },
+        "demoEnabled": {
+          "type": "integer"
+        },
+        "demoQuality": {
+          "type": "integer"
+        },
+        "demoIndexURL": {
+          "type": "string"
+        },
+        "demoDownloadURL": {
+          "type": "string"
+        },
+        "welcomeMessage": {
+          "type": "string"
+        },
+        "sponsorText": {
+          "type": "string"
+        },
+        "mutinySystem": {
+          "type": "integer"
+        },
+        "round": {
+          "$ref": "#/definitions/Round"
+        },
+        "sponsorMessage": {
+          "$ref": "#/definitions/SponsorMessage"
+        },
+        "squads": {
+          "$ref": "#/definitions/Squads"
+        },
+        "smartBalance": {
+          "$ref": "#/definitions/SmartBalance"
+        },
+        "allchat": {
+          "$ref": "#/definitions/Allchat"
+        },
+        "announcer": {
+          "$ref": "#/definitions/Announcer"
+        },
+        "logs": {
+          "$ref": "#/definitions/Logs"
+        },
+        "entranceControl": {
+          "$ref": "#/definitions/EntranceControl"
+        },
+        "admin": {
+          "$ref": "#/definitions/Admin"
+        },
+        "prism": {
+          "$ref": "#/definitions/Prism"
+        },
+        "debug": {
+          "type": "integer"
+        },
+        "debugPlayers": {
+          "type": "array",
+          "items": {}
+        },
+        "extraCommands": {
+          "$ref": "#/definitions/ExtraCommands"
+        },
+        "tracker": {
+          "$ref": "#/definitions/Tracker"
+        },
+        "acsys": {
+          "$ref": "#/definitions/Acsys"
+        },
+        "acsysCustomTypes": {
+          "type": "null"
+        }
+      },
+      "required": [
+        "acsys",
+        "acsysCustomTypes",
+        "admin",
+        "allchat",
+        "announcer",
+        "communityLogoURL",
+        "countryflag",
+        "debug",
+        "debugPlayers",
+        "demoDownloadURL",
+        "demoEnabled",
+        "demoIndexURL",
+        "demoQuality",
+        "entranceControl",
+        "externalIP",
+        "extraCommands",
+        "internet",
+        "ip",
+        "logs",
+        "maplist",
+        "maplistRaw",
+        "maxPlayers",
+        "murmurIP",
+        "murmurPort",
+        "murmurSecret",
+        "mutinySystem",
+        "name",
+        "password",
+        "portGame",
+        "portGamespy",
+        "portPrism",
+        "prism",
+        "reservedSlots",
+        "reservedSlotsNum",
+        "round",
+        "smartBalance",
+        "sponsorLogoURL",
+        "sponsorMessage",
+        "sponsorText",
+        "squads",
+        "tracker",
+        "votingEnabled",
+        "welcomeMessage"
+      ],
+      "title": "Welcome3"
+    },
+    "Acsys": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enable": {
+          "type": "boolean"
+        },
+        "assets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Asset"
+          }
+        },
+        "lowPop": {
+          "$ref": "#/definitions/LowPop"
+        }
+      },
+      "required": [
+        "assets",
+        "enable",
+        "lowPop"
+      ],
+      "title": "Acsys"
+    },
+    "Asset": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "squadnameContains": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "squadControls": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "exclude": {
+          "type": "array",
+          "items": {}
+        }
+      },
+      "required": [
+        "exclude",
+        "name",
+        "squadControls",
+        "squadnameContains"
+      ],
+      "title": "Asset"
+    },
+    "LowPop": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "limit": {
+          "type": "integer"
+        },
+        "vehicleType": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "include": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "include",
+        "limit",
+        "vehicleType"
+      ],
+      "title": "LowPop"
+    },
+    "Admin": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "autoAdmin": {
+          "type": "boolean"
+        },
+        "notifyChangeTeam": {
+          "type": "boolean"
+        },
+        "sendTeamKillMessage": {
+          "type": "boolean"
+        },
+        "notifySameIP": {
+          "type": "boolean"
+        },
+        "banTime": {
+          "type": "integer"
+        },
+        "commandSymbol": {
+          "type": "string"
+        },
+        "idPrefix": {
+          "type": "string"
+        },
+        "squadPrefix": {
+          "type": "string"
+        },
+        "maxAltitude": {
+          "type": "integer"
+        },
+        "mvoteDuration": {
+          "type": "integer"
+        },
+        "mvoteRecurrence": {
+          "type": "integer"
+        },
+        "maxRopes": {
+          "type": "integer"
+        },
+        "website": {
+          "type": "string"
+        },
+        "rulesEnabled": {
+          "type": "boolean"
+        },
+        "rules": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "adminHashes": {
+          "type": "array",
+          "items": {}
+        },
+        "liteAdminHashes": {
+          "type": "array",
+          "items": {}
+        },
+        "commandAliases": {
+          "$ref": "#/definitions/CommandAliases"
+        },
+        "reasons": {
+          "$ref": "#/definitions/CommandAliases"
+        },
+        "commandLevels": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "integer"
+          }
+        }
+      },
+      "required": [
+        "adminHashes",
+        "autoAdmin",
+        "banTime",
+        "commandAliases",
+        "commandLevels",
+        "commandSymbol",
+        "enabled",
+        "idPrefix",
+        "liteAdminHashes",
+        "maxAltitude",
+        "maxRopes",
+        "mvoteDuration",
+        "mvoteRecurrence",
+        "notifyChangeTeam",
+        "notifySameIP",
+        "reasons",
+        "rules",
+        "rulesEnabled",
+        "sendTeamKillMessage",
+        "squadPrefix",
+        "website"
+      ],
+      "title": "Admin"
+    },
+    "CommandAliases": {
+      "type": "object",
+      "additionalProperties": false,
+      "title": "CommandAliases"
+    },
+    "Allchat": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "disableThreshold": {
+          "type": "integer"
+        },
+        "enableThreshold": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "disableThreshold",
+        "enableThreshold",
+        "enabled"
+      ],
+      "title": "Allchat"
+    },
+    "Announcer": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "joinMessageEnabled": {
+          "type": "boolean"
+        },
+        "joinMessage": {
+          "type": "string"
+        },
+        "disconnectMessageEnabled": {
+          "type": "boolean"
+        },
+        "disconnectMessage": {
+          "type": "string"
+        },
+        "timedMessagesEnabled": {
+          "type": "boolean"
+        },
+        "timedMessages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TimedMessage"
+          }
+        }
+      },
+      "required": [
+        "disconnectMessage",
+        "disconnectMessageEnabled",
+        "enabled",
+        "joinMessage",
+        "joinMessageEnabled",
+        "timedMessages",
+        "timedMessagesEnabled"
+      ],
+      "title": "Announcer"
+    },
+    "TimedMessage": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "interval": {
+          "type": "integer"
+        },
+        "msg": {
+          "type": "string"
+        },
+        "longMsg": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "interval"
+      ],
+      "title": "TimedMessage"
+    },
+    "EntranceControl": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "minimumTrust": {
+          "type": "integer"
+        },
+        "allowVacBanned": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "allowVacBanned",
+        "minimumTrust"
+      ],
+      "title": "EntranceControl"
+    },
+    "ExtraCommands": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "debug": {
+          "$ref": "#/definitions/Debug"
+        },
+        "initMumble": {
+          "$ref": "#/definitions/Debug"
+        }
+      },
+      "required": [
+        "debug",
+        "initMumble"
+      ],
+      "title": "ExtraCommands"
+    },
+    "Debug": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "powerLevel": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "enabled",
+        "powerLevel"
+      ],
+      "title": "Debug"
+    },
+    "Logs": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "dateFormat": {
+          "type": "string"
+        },
+        "timeFormat": {
+          "type": "string"
+        },
+        "chatlog": {
+          "$ref": "#/definitions/Chatlog"
+        },
+        "coincidentIPs": {
+          "$ref": "#/definitions/Admins"
+        },
+        "admins": {
+          "$ref": "#/definitions/Admins"
+        },
+        "bans": {
+          "$ref": "#/definitions/Admins"
+        },
+        "tickets": {
+          "$ref": "#/definitions/Admins"
+        }
+      },
+      "required": [
+        "admins",
+        "bans",
+        "chatlog",
+        "coincidentIPs",
+        "dateFormat",
+        "tickets",
+        "timeFormat"
+      ],
+      "title": "Logs"
+    },
+    "Admins": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "file": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "enabled",
+        "file",
+        "path"
+      ],
+      "title": "Admins"
+    },
+    "Chatlog": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "connects": {
+          "type": "boolean"
+        },
+        "changeTeam": {
+          "type": "boolean"
+        },
+        "teamkills": {
+          "type": "boolean"
+        },
+        "kills": {
+          "type": "boolean"
+        },
+        "file": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "changeTeam",
+        "connects",
+        "enabled",
+        "file",
+        "kills",
+        "path",
+        "teamkills"
+      ],
+      "title": "Chatlog"
+    },
+    "Prism": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "welcome": {
+          "type": "string"
+        },
+        "commandPowerLevels": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "integer"
+          }
+        },
+        "users": {
+          "type": "array",
+          "items": {}
+        }
+      },
+      "required": [
+        "commandPowerLevels",
+        "enabled",
+        "users",
+        "welcome"
+      ],
+      "title": "Prism"
+    },
+    "Round": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "timeLimit": {
+          "type": "integer"
+        },
+        "startDelay": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "startDelay",
+        "timeLimit"
+      ],
+      "title": "Round"
+    },
+    "SmartBalance": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "difference": {
+          "type": "integer"
+        },
+        "swapTeamsOnStart": {
+          "type": "boolean"
+        },
+        "scrambleTeamsOnStart": {
+          "type": "boolean"
+        },
+        "randomiseJoinTeam": {
+          "type": "boolean"
+        },
+        "balanceOnDeath": {
+          "type": "boolean"
+        },
+        "antiGhost": {
+          "type": "boolean"
+        },
+        "disableSwitchNow": {
+          "type": "boolean"
+        },
+        "forceRejoinTeamswitch": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "antiGhost",
+        "balanceOnDeath",
+        "difference",
+        "disableSwitchNow",
+        "enabled",
+        "forceRejoinTeamswitch",
+        "randomiseJoinTeam",
+        "scrambleTeamsOnStart",
+        "swapTeamsOnStart"
+      ],
+      "title": "SmartBalance"
+    },
+    "SponsorMessage": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        },
+        "interval": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "enabled",
+        "interval",
+        "message"
+      ],
+      "title": "SponsorMessage"
+    },
+    "Squads": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "noSquadsBefore": {
+          "type": "integer"
+        },
+        "resignEarly": {
+          "type": "boolean"
+        },
+        "resignEarlyAttempts": {
+          "type": "integer"
+        },
+        "kickLimit": {
+          "type": "integer"
+        },
+        "kickSquadLess": {
+          "type": "boolean"
+        },
+        "kickSquadLessTime": {
+          "type": "integer"
+        },
+        "kickSquadLessAFK": {
+          "type": "boolean"
+        },
+        "kickSquadLessAFKTime": {
+          "type": "integer"
+        },
+        "kickAFKPercent": {
+          "type": "number"
+        },
+        "kickSquadedAFK": {
+          "type": "boolean"
+        },
+        "kickSquadedAFKTime": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "kickAFKPercent",
+        "kickLimit",
+        "kickSquadLess",
+        "kickSquadLessAFK",
+        "kickSquadLessAFKTime",
+        "kickSquadLessTime",
+        "kickSquadedAFK",
+        "kickSquadedAFKTime",
+        "noSquadsBefore",
+        "resignEarly",
+        "resignEarlyAttempts"
+      ],
+      "title": "Squads"
+    },
+    "Tracker": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "interval": {
+          "type": "number"
+        },
+        "tmpFolder": {
+          "type": "string"
+        },
+        "filename": {
+          "type": "string"
+        },
+        "public": {
+          "$ref": "#/definitions/JSON"
+        },
+        "private": {
+          "$ref": "#/definitions/Private"
+        },
+        "json": {
+          "$ref": "#/definitions/JSON"
+        },
+        "flushEveryTick": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "enabled",
+        "filename",
+        "flushEveryTick",
+        "interval",
+        "json",
+        "private",
+        "public",
+        "tmpFolder"
+      ],
+      "title": "Tracker"
+    },
+    "JSON": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "path": {
+          "type": "string"
+        },
+        "writeIPs": {
+          "type": "boolean"
+        },
+        "writeHashes": {
+          "type": "boolean"
+        },
+        "chat": {
+          "$ref": "#/definitions/Chat"
+        }
+      },
+      "required": [
+        "enabled",
+        "path",
+        "writeHashes",
+        "writeIPs"
+      ],
+      "title": "JSON"
+    },
+    "Chat": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "team": {
+          "type": "boolean"
+        },
+        "squad": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "enabled",
+        "squad",
+        "team"
+      ],
+      "title": "Chat"
+    },
+    "Private": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "path": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "enabled",
+        "path"
+      ],
+      "title": "Private"
+    }
+  }
+}
