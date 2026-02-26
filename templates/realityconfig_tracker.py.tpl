@@ -1,4 +1,4 @@
-#========================================================================================================
+# ========================================================================================================
 #
 # PROJECT REALITY SERVER SETTINGS DEFINITION FOR THE REALITYTRACKER SCRIPT
 #
@@ -9,7 +9,7 @@
 C = {}
 
 {{- with .Values.tracker }}
-#Set to false to completely disable the tracker
+# Set to false to completely disable the tracker
 C['ENABLE'] = {{ pyBool .enabled }}
 
 # TRACKER UPDATE INTERVAL
@@ -18,7 +18,7 @@ C['ENABLE'] = {{ pyBool .enabled }}
 C['UPDATE_INTERVAL'] = {{ .interval }}
 
 
-#================= Local work mode settings
+# ================= Local work mode settings
 
 # Folder to write incomplete recordings into. Keep folder private to prevent ghosting!
 C['TMP_FOLDER'] = '{{ .tmpFolder }}'
@@ -27,16 +27,16 @@ C['TMP_FOLDER'] = '{{ .tmpFolder }}'
 # FILE NAME
 # available parameters:
 # - '/map' '/mode' '/layer'
-# - date related strings that are parsed by strftime (https://docs.python.org/2/library/datetime.html#strftime-strptime-behavior)
+# - date related strings that are parsed by strftime (
+# https://docs.python.org/2/library/datetime.html#strftime-strptime-behavior)
 C['FILE_NAME'] = '{{ .filename }}'
 
 
-#========PUBLIC TRACKER FILE
+# ========PUBLIC TRACKER FILE
 C['TRACKER_FILE_PUBLIC'] = {{ pyBool .public.enabled }}
 
 # Folder to move complete public recordings into.
 C['PUBLIC_FOLDER'] = '{{ .public.path }}'
-
 
 # Public file private data selection:
 
@@ -53,15 +53,12 @@ C['CHAT_TEAM'] = {{ pyBool .public.chat.team }}
 C['CHAT_SQUAD'] = {{ pyBool .public.chat.squad }}
 
 
-#==== PRIVATE TRACKER FILE
+# ==== PRIVATE TRACKER FILE
 # Create an extra file without filtering any private information
 C['TRACKER_FILE_PRIVATE'] = {{ pyBool .private.enabled }}
 C['PRIVATE_FOLDER'] = '{{ .private.path }}'
 
-
-
-
-#===== JSON Summary
+# ===== JSON Summary
 # Write a summary at end of round.
 C['JSON_ENABLE'] = {{ pyBool .json.enabled }}
 # Folder for the JSON files. This must be set to something if JSON is enabled.
@@ -70,16 +67,13 @@ C['JSON_FOLDER'] = '{{ .json.path }}'
 C['JSON_WRITE_IP'] = {{ pyBool .json.writeIPs }}
 C['JSON_WRITE_HASH'] = {{ pyBool .json.writeHashes }}
 
-#===== Advanced options
+# ===== Advanced options
 # Flush to file every recording tick, useful if you're having another program read the file.
 C['OUTPUT_FLUSH_EVERY_TICK'] = {{ pyBool .flushEveryTick }}
 
-
-
-
 # Work in progress, doesn't work:
 
-#===== Networking work mode settings
+# ===== Networking work mode settings
 # TRACKER NETWORKING
 # Specify if you want to run the tracker with a remote connection
 C['TRACKER_NETWORKING'] = False

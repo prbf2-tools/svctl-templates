@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-import realityconstants as c
 # coding=UTF-8
 # ==============================================================================
 #
@@ -12,6 +10,7 @@ import realityconstants as c
 #
 # ==============================================================================
 # dont touch this import
+import realityconstants as c
 # GLOBAL SETTINGS
 #
 # If false, the entire RealityAdmin is disabled.
@@ -35,8 +34,9 @@ gameNotificationsEnabled = True
 # ==============================================================================
 # Squads SETTINGS
 #
-# Seconds after round start until allowed to create squads.
-# sqd_noSquadsBefore is subtracted from the number of seconds set in 'PRROUNDSTARTDELAY' var via realityconfig_common.py in order to get the SquadCreationTime.
+# Seconds after round start until allowed to create squads. 
+# sqd_noSquadsBefore is subtracted from the number of seconds set in 'PRROUNDSTARTDELAY' var via
+# realityconfig_common.py in order to get the SquadCreationTime.
 # Default is 90
 
 {{- with .Values.squads }}
@@ -623,6 +623,13 @@ adm_reasons = {
 {{- end }}
 }
 #
+#
+# This is appended to the reason every time someone is banned.
+# Allows you to e.g. tell the player where to appeal automatically.
+# Default is nothing, i.e. empty ""
+adm_ban_reason_suffix = {{ .banReasonSuffix | quote }}
+#
+#
 # Enable displaying rules.
 # Default is False
 adm_rulesEnabled = {{ pyBool .rulesEnabled }}
@@ -684,8 +691,7 @@ rcon_commandPowerLevels = {
 {{- with .Values.acsys }}
 # ACSYS Asset Claim SYStem (commented out for now, future patch)
 acsys_enable = {{ pyBool .enable }}  # Enforce squads in acsys_assets name uniqueness
-# enforce a minimum number of players before using assets, set to 0 to disable
-acsys_low_pop_limit = {{ .lowPop.limit }}
+acsys_low_pop_limit = {{ .lowPop.limit }} # enforce a minimum number of players before using assets, set to 0 to disable
 # c.VEHICLE_TYPE_UNKNOWN
 # c.VEHICLE_TYPE_ARMOR  # TANK
 # c.VEHICLE_TYPE_AAV  # Anti Air
@@ -699,7 +705,7 @@ acsys_low_pop_limit = {{ .lowPop.limit }}
 # c.VEHICLE_TYPE_STATIC
 # c.VEHICLE_TYPE_SOLDIER
 # c.VEHICLE_TYPE_ASSET
-# c.VEHICLE_TYPE_SHIP
+# c.VEHICLE_TYPE_OBJECTIVE
 # c.VEHICLE_TYPE_TURBOPROP
 # c.VEHICLE_TYPE_AFV # open top shitboxes Armoured Fighting Vehicle
 # c.VEHICLE_TYPE_ALC  # Armoured Logistics Carrier
@@ -714,14 +720,13 @@ acsys_assets = {
 {{- end }}
 }
 acsys_low_pop = {  # additional types and template names to exclude from low pop servers
-    "vehicle_type": [{{ range .vehicleType }}{{ . }}, {{- end }}],
-    "include": [{{ range .include }}{{ . | quote }}, {{- end }}],
+    "vehicle_type": [{{ range .lowPop.vehicleType }}{{ . }}, {{- end }}],
+    "include": [{{ range .lowPop.include }}{{ . | quote }}, {{- end }}],
 }
 {{- end }}
 
 # Prism TCP port to listen on
 rcon_port = {{ .Values.portPrism }}
-
 
 # Entrance control
 {{- with .Values.entranceControl }}
@@ -742,7 +747,8 @@ sv_externalIP = {{ .Values.externalIP | quote }}
 # Shared secret between gameserver and murmur. Prevents players that are not on the server from speaking on mumble.
 # Gameserver and murmur should set this to the same secret value.
 # (on murmur, set at PRMurmur\mumo\modules-enabled\prbf2.ini, at [prbf2]/secret)
-# You must make sure the clock of the gameserver host and the murmur host are synchronized (different timezones are considered)
+# You must make sure the clock of the gameserver host and the murmur host are synchronized (different timezones are
+# considered)
 # Does nothing if the feature is not enabled on murmur.
 mum_mumbleSecret = {{ .Values.murmurSecret | quote }}
 
@@ -761,6 +767,7 @@ testscramble = True
 # Prevent these IDs from being caught in related bans, useful for genuinely shared computers etc
 # whitelisted_player_ids = ["77ff5fecc0e648249bd6b01fdba02242"]
 whitelisted_player_ids = []
+
 
 {{- with .Values.allchat }}
 #

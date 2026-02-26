@@ -151,7 +151,7 @@ admin:
   mvoteDuration: 60
   mvoteRecurrence: 10
   maxRopes: 10
-  website: "§C1001http://www.realitymod.com"
+  website: "§C1001https://www.realitymod.com"
 
   rulesEnabled: false
   rules:
@@ -199,6 +199,8 @@ admin:
     # "locked":   " Open your locked squad!"
     # "solo":     "Your vehicle is not properly manned!"
     # "spam":     "Stop chat-spamming!"
+  
+  banReasonSuffix: ""
 
   commandLevels:
     aa: 1
