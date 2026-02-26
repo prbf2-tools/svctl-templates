@@ -199,6 +199,8 @@ admin:
     # "locked":   " Open your locked squad!"
     # "solo":     "Your vehicle is not properly manned!"
     # "spam":     "Stop chat-spamming!"
+  
+  banReasonSuffix: ""
 
   commandLevels:
     aa: 1

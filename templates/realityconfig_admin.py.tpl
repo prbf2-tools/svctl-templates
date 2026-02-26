@@ -623,6 +623,13 @@ adm_reasons = {
 {{- end }}
 }
 #
+#
+# This is appended to the reason every time someone is banned.
+# Allows you to e.g. tell the player where to appeal automatically.
+# Default is nothing, i.e. empty ""
+adm_ban_reason_suffix = {{ .banReasonSuffix | quote }}
+#
+#
 # Enable displaying rules.
 # Default is False
 adm_rulesEnabled = {{ pyBool .rulesEnabled }}
