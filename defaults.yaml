@@ -151,7 +151,7 @@ admin:
   mvoteDuration: 60
   mvoteRecurrence: 10
   maxRopes: 10
-  website: "§C1001http://www.realitymod.com"
+  website: "§C1001https://www.realitymod.com"
 
   rulesEnabled: false
   rules:

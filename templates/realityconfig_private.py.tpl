@@ -6,7 +6,7 @@
 #
 # This config is identical to the public one.
 #
-# $Id: realityconfig_private.py 41725 2025-01-12 14:03:12Z prbot $
+# $Id: realityconfig_private.py 43616 2026-01-16 17:45:17Z mats391 $
 #
 #
 import realityconstants as CONSTANTS
@@ -116,7 +116,7 @@ C['TICKETS'] = {
     CONSTANTS.VEHICLE_TYPE_JET: -10,
     CONSTANTS.VEHICLE_TYPE_HELIATTACK: -10,
     CONSTANTS.VEHICLE_TYPE_TURBOPROP: -7,
-    CONSTANTS.VEHICLE_TYPE_SHIP: -50,
+    CONSTANTS.VEHICLE_TYPE_OBJECTIVE: -50,
     CONSTANTS.VEHICLE_TYPE_HELI: -5,
     CONSTANTS.VEHICLE_TYPE_RECON: -5,
     CONSTANTS.VEHICLE_TYPE_AAV: -5,
@@ -234,8 +234,22 @@ C['AAS_MINNRTONEUTRAL'] = 5
 # PROJECT REALITY SKIRMISH SETTINGS
 #
 # Number of tickets for each team
-# Default is 150
-C['SKIRMISH_TICKETS'] = 150
+# Default is 300
+# For the old skirmish gamemode, the default is 150
+C['SKIRMISH_TICKETS'] = 300
+#
+#
+# Maximum number of seconds added to a respawn
+# Default is 10 seconds
+# For the old skirmish gamemode, the default is 300 seconds
+C['SKIRMISH_MAX_PENALTY'] = 10
+#
+#
+# The amount of seconds the player will stay dead
+# Note that this time is also subject to other penalties
+# Default is 10 seconds
+# For the old skirmish gamemode, the default is 45 seconds
+C['SKIRMISH_DEAD_TIME'] = 10
 #
 #
 # Tickets lost when losing a flag (both neutralized and captured)
@@ -582,6 +596,11 @@ C['KIT_LIMITS'] = {
         'spotter': 3,
         'officer': 2, 'sniper': 3, 'aa': 3, 'at': 3, 'engineer': 3, 'medic': 2, 'tanker': 1, 'rifleman': 0
     },
+    'saf': {
+        'marksman': 6, 'support': 4, 'riflemanat': 4, 'assault': 6, 'riflemanap': 4, 'specialist': 4, 'mg': 6,
+        'spotter': 3,
+        'officer': 2, 'sniper': 3, 'aa': 3, 'at': 3, 'engineer': 3, 'medic': 2, 'tanker': 1, 'pilot': 1, 'rifleman': 0
+    },
     'nl': {
         'marksman': 6, 'support': 4, 'riflemanat': 4, 'assault': 6, 'riflemanap': 4, 'specialist': 4, 'mg': 6,
         'spotter': 3,
@@ -760,6 +779,10 @@ C['KIT_SUPPLY_OBJECTS'] = {
         'pr_supply_crate_fr': CONSTANTS.DISTANCE_PICKUP, 'light_supply_crate_fr': CONSTANTS.DISTANCE_PICKUP,
         'fixed_supply_crate_fr': CONSTANTS.DISTANCE_PICKUP
     },
+    'saf': {
+        'pr_supply_crate_saf': CONSTANTS.DISTANCE_PICKUP, 'light_supply_crate_saf': CONSTANTS.DISTANCE_PICKUP,
+        'fixed_supply_crate_saf': CONSTANTS.DISTANCE_PICKUP
+    },
     'fsa': {
         'ammocache': CONSTANTS.DISTANCE_PICKUP, 'pr_supply_crate_fsa': CONSTANTS.DISTANCE_PICKUP,
         'light_supply_crate_fsa': CONSTANTS.DISTANCE_PICKUP, 'fixed_supply_crate_fsa': CONSTANTS.DISTANCE_PICKUP
@@ -865,6 +888,16 @@ C['KIT_SUPPLY_OBJECTS_VEHICLES'] = {
     'gb82': {},
     'arg82': {'arg_apc_lvtp7': CONSTANTS.DISTANCE_PICKUP},
     'fr': {'fr_apc_vab': CONSTANTS.DISTANCE_PICKUP, 'fr_apc_vbci': CONSTANTS.DISTANCE_PICKUP},
+    'saf': {
+        'mec_apc_boragh': CONSTANTS.DISTANCE_PICKUP, 'saf_apc_btr60': CONSTANTS.DISTANCE_PICKUP,
+        'mec_ifv_bmp3': CONSTANTS.DISTANCE_PICKUP, 'mec_apc_mtlb': CONSTANTS.DISTANCE_PICKUP,
+        'mec_apc_mtlb_hmg': CONSTANTS.DISTANCE_PICKUP, 'mec_apc_mtlb_30mm': CONSTANTS.DISTANCE_PICKUP,
+        'saf_ifv_bmp2': CONSTANTS.DISTANCE_PICKUP, 'saf_apc_bmp2': CONSTANTS.DISTANCE_PICKUP,
+        'saf_ifv_bmp1':      CONSTANTS.DISTANCE_PICKUP, 'saf_apc_bmp1':      CONSTANTS.DISTANCE_PICKUP,
+        'mec_apc_btr80': CONSTANTS.DISTANCE_PICKUP,
+        'mec_apc_btr80_alt': CONSTANTS.DISTANCE_PICKUP, 'mec_apc_btr80a': CONSTANTS.DISTANCE_PICKUP, 
+        'mec_apc_mtplb': CONSTANTS.DISTANCE_PICKUP
+    },
     'nl': {
         'nl_apc_boxer': CONSTANTS.DISTANCE_PICKUP, 'nl_apc_boxer_unarmed': CONSTANTS.DISTANCE_PICKUP,
         'nl_apc_cv90': CONSTANTS.DISTANCE_PICKUP, 'nl_apc_ypr50': CONSTANTS.DISTANCE_PICKUP,
@@ -895,6 +928,7 @@ C['KIT_SUPPLY_OBJECTS_OPEN'] = {
     'ger': {'vehicle_depot_ger': CONSTANTS.DEPOT_KIT_DISTANCE},
     'ch': {'vehicle_depot_ch': CONSTANTS.DEPOT_KIT_DISTANCE},
     'mec': {'vehicle_depot_mec': CONSTANTS.DEPOT_KIT_DISTANCE},
+    'saf': {'vehicle_depot_saf': CONSTANTS.DEPOT_KIT_DISTANCE},
     'pl': {'vehicle_depot_pl': CONSTANTS.DEPOT_KIT_DISTANCE},
     'ru': {'vehicle_depot_ru': CONSTANTS.DEPOT_KIT_DISTANCE},
     'ru90': {'vehicle_depot_ru': CONSTANTS.DEPOT_KIT_DISTANCE},
@@ -957,18 +991,18 @@ C['VEHICLES_START_DELAY'] = 1
 # PROJECT REALITY RALLY POINT SYSTEM SETTINGS
 #
 # Teams that use the squad rally point system
-# Default is arf, ch, gb, mec, us, usa, cf, chinsurgent, chinsurgent90, ru, ru90, arf, taliban, idf, hamas, ger, vnusa, vnusmc, vnnva, gb82, arg82, fr, nl, ww2ger, ww2usa
+# Default is arf, ch, gb, mec, us, usa, cf, chinsurgent, chinsurgent90, ru, ru90, arf, taliban, idf, hamas, ger, vnusa, vnusmc, vnnva, gb82, arg82, fr, saf, nl, ww2ger, ww2usa
 C['RALLY_TEAMS'] = [
-    'arf', 'arg82', 'cf', 'ch', 'chinsurgent', 'chinsurgent90', 'chechen90', 'fr', 'fsa', 'gb', 'gb82', 'ger', 'hamas', 'idf', 'mec',
+    'arf', 'arg82', 'cf', 'ch', 'chinsurgent', 'chinsurgent90', 'chechen90', 'fr', 'saf', 'fsa', 'gb', 'gb82', 'ger', 'hamas', 'idf', 'mec',
     'nl', 'pl', 'ru', 'ru90', 'taliban', 'us', 'usa', 'vnnva', 'vnusa', 'vnusmc', 'ww2ger', 'ww2usa', 'ww2ger41',
     'ww2rus', 'ww2rusearly'
 ]
 #
 #
 # Teams that use the commander rally point system
-# Default is arf, ch, gb, mec, us, usa, cf, chinsurgent, chinsurgent90, ru, ru90, arf, taliban, idf, hamas, ger, vnusa, vnusmc, vnnva, gb82, arg82, fr, nl, ww2ger, ww2usa
+# Default is arf, ch, gb, mec, us, usa, cf, chinsurgent, chinsurgent90, ru, ru90, arf, taliban, idf, hamas, ger, vnusa, vnusmc, vnnva, gb82, arg82, fr, saf, nl, ww2ger, ww2usa
 C['RALLY_TEAMS_COMMANDER'] = [
-    'arf', 'arg82', 'cf', 'ch', 'chinsurgent', 'chinsurgent90', 'chechen90', 'fr', 'fsa', 'gb', 'gb82', 'ger', 'hamas', 'idf', 'mec',
+    'arf', 'arg82', 'cf', 'ch', 'chinsurgent', 'chinsurgent90', 'chechen90', 'fr', 'saf', 'fsa', 'gb', 'gb82', 'ger', 'hamas', 'idf', 'mec',
     'nl', 'pl', 'ru', 'ru90', 'taliban', 'us', 'usa', 'vnnva', 'vnusa', 'vnusmc', 'ww2ger', 'ww2usa', 'ww2ger41',
     'ww2rus', 'ww2rusearly'
 ]
@@ -1091,10 +1125,10 @@ C['RALLY_SUPPORT_VEHICLE_TYPES'] = ['apc', 'ifv']
 # PROJECT REALITY COMMANDER ASSETS SYSTEM SETTINGS
 #
 # The teams that use the commander assets system
-# Default is ch, gb, mec, us, usa, cf, chinsurgent, chinsurgent90, meinsurgent, ru, ru90, arf, taliban, idf, hamas, ger, vnusa, vnusmc, vnnva, gb82, arg82, fr, nl, ww2ger, ww2usa
+# Default is ch, gb, mec, us, usa, cf, chinsurgent, chinsurgent90, meinsurgent, ru, ru90, arf, taliban, idf, hamas, ger, vnusa, vnusmc, vnnva, gb82, arg82, fr, saf, nl, ww2ger, ww2usa
 C['ASSET_TEAMS'] = [
     'ch', 'gb', 'mec', 'us', 'usa', 'fsa', 'cf', 'chinsurgent', 'chinsurgent90', 'chechen90', 'meinsurgent', 'pl', 'ru', 'ru90',
-    'arf', 'taliban', 'idf', 'hamas', 'ger', 'vnusa', 'vnusmc', 'vnnva', 'gb82', 'arg82', 'fr', 'nl', 'ww2ger',
+    'arf', 'taliban', 'idf', 'hamas', 'ger', 'vnusa', 'vnusmc', 'vnnva', 'gb82', 'arg82', 'fr', 'saf', 'nl', 'ww2ger',
     'ww2usa', 'ww2ger41', 'ww2rus', 'ww2rusearly'
 ]
 #
@@ -1205,8 +1239,8 @@ C['ASSET_EDGE_DISTANCE'] = CONSTANTS.DISTANCE_SPAWN
 #
 #
 # The teams that can use the UAV type 1 system
-# Default is ch, gb, mec, us, usa, cf, ru, ru90, idf, ger, fr, nl
-C['ASSET_TEAMS_UAV1'] = ['ch', 'gb', 'mec', 'pl', 'us', 'usa', 'cf', 'ru', 'ru90', 'idf', 'ger', 'fr', 'nl']
+# Default is ch, gb, mec, us, usa, cf, ru, ru90, idf, ger, fr, saf, nl
+C['ASSET_TEAMS_UAV1'] = ['ch', 'gb', 'mec', 'pl', 'us', 'usa', 'cf', 'ru', 'ru90', 'idf', 'ger', 'fr', 'saf', 'nl']
 #
 #
 # The teams that can use the UAV type 2 system
@@ -1246,6 +1280,7 @@ C['COMMANDPOST_TEMPLATES'] = {
     'ger': ['deployable_commandpost_ger', 'ger_acv_m557a2'],
     'ch': ['deployable_commandpost_ch', 'ch_acv_wz551', 'ch_ship_type75_lpd_atc'],
     'mec': ['deployable_commandpost_mec', 'mec_acv_btr60pu'],
+    'saf': ['deployable_commandpost_saf', 'saf_acv_btr60pu'],
     'pl': ['deployable_commandpost_pl', 'pl_acv_star1466'],
     'ru': ['deployable_commandpost_ru', 'ru_acv_btr60pu', 'ru_ship_andreev_lpd_atc'],
     'ru90': ['deployable_commandpost_ru', 'ru_acv_btr60pu', 'ru_ship_andreev_lpd_atc'],
@@ -1282,6 +1317,7 @@ C['VEHICLE_SUPPLY_DEPOT_TEMPLATES'] = {
     'ger': ['vehicle_depot_ger'],
     'ch': ['vehicle_depot_ch'],
     'mec': ['vehicle_depot_mec'],
+    'saf': ['vehicle_depot_saf'],
     'pl': ['vehicle_depot_pl'],
     'ru': ['vehicle_depot_ru'],
     'ru90': ['vehicle_depot_ru'],
@@ -1321,6 +1357,7 @@ C['OUTPOST_TEMPLATES'] = {
     'ger': ['deployable_firebase'],
     'ch': ['deployable_firebase'],
     'mec': ['deployable_firebase'],
+    'saf': ['deployable_firebase'],
     'pl': ['deployable_firebase'],
     'ru': ['deployable_firebase'],
     'ru90': ['deployable_firebase'],
@@ -1360,6 +1397,7 @@ C['OUTPOST_TEMPLATES_DUMMY'] = {
     'ger': ['deployable_firebase_dummy'],
     'ch': ['deployable_firebase_dummy'],
     'mec': ['deployable_firebase_dummy'],
+    'saf': ['deployable_firebase_dummy'],
     'pl': ['deployable_firebase_dummy'],
     'ru': ['deployable_firebase_dummy'],
     'ru90': ['deployable_firebase_dummy'],
@@ -1467,6 +1505,7 @@ C['SUPPLIES_TEMPLATES'] = {
     'ger': [['pr_supply_crate_ger', 1], ['light_supply_crate_ger', 0.5]],
     'ch': [['pr_supply_crate_ch', 1], ['light_supply_crate_ch', 0.5]],
     'mec': [['pr_supply_crate_mec', 1], ['light_supply_crate_mec', 0.5]],
+    'saf': [['pr_supply_crate_saf', 1], ['light_supply_crate_saf', 0.5]],
     'pl': [['pr_supply_crate_pl', 1], ['light_supply_crate_pl', 0.5]],
     'ru': [['pr_supply_crate_ru', 1], ['light_supply_crate_ru', 0.5]],
     'ru90': [['pr_supply_crate_ru', 1], ['light_supply_crate_ru', 0.5]],
@@ -1500,6 +1539,7 @@ C['SUPPLIES_TEMPLATES_TEAMLOCKED'] = {
     'ger': ['pr_supply_crate_ger', 'pr_supply_depot_ger', 'light_supply_crate_ger', 'fixed_supply_crate_ger'],
     'ch': ['pr_supply_crate_ch', 'pr_supply_depot_ch', 'light_supply_crate_ch', 'fixed_supply_crate_ch'],
     'mec': ['pr_supply_crate_mec', 'pr_supply_depot_mec', 'light_supply_crate_mec', 'fixed_supply_crate_mec'],
+    'saf': ['pr_supply_crate_saf', 'pr_supply_depot_saf', 'light_supply_crate_saf', 'fixed_supply_crate_saf'],
     'pl': ['pr_supply_crate_pl', 'pr_supply_depot_pl', 'light_supply_crate_pl', 'fixed_supply_crate_pl'],
     'ru': ['pr_supply_crate_ru', 'pr_supply_depot_ru', 'light_supply_crate_ru', 'fixed_supply_crate_ru'],
     'ru90': ['pr_supply_crate_ru', 'pr_supply_depot_ru', 'light_supply_crate_ru', 'fixed_supply_crate_ru'],
@@ -1536,6 +1576,7 @@ C['ANTIAIR_TEMPLATES'] = {
     'ger': ['deployable_stinger'],
     'ch': ['deployable_djigit'],
     'mec': ['deployable_djigit'],
+    'saf': ['deployable_zu232'],
     'pl': ['deployable_djigit'],
     'ru': ['deployable_djigit'],
     'ru90': ['deployable_djigit'],
@@ -1566,6 +1607,7 @@ C['ANTIAIR_TEMPLATES_DUMMY'] = {
     'ger': ['deployable_stinger_dummy'],
     'ch': ['deployable_djigit_dummy'],
     'mec': ['deployable_djigit_dummy'],
+    'saf': ['deployable_zu232_dummy'],
     'pl': ['deployable_djigit_dummy'],
     'ru': ['deployable_djigit_dummy'],
     'ru90': ['deployable_djigit_dummy'],
@@ -1598,6 +1640,7 @@ C['HMG_TEMPLATES'] = {
     'ger': ['deployable_50cal_tripod_m2'],
     'ch': ['deployable_50cal_tripod_type85'],
     'mec': ['deployable_50cal_tripod_kord'],
+    'saf': ['deployable_50cal_tripod_kord'],
     'pl': ['deployable_50cal_tripod_kord'],
     'ru': ['deployable_50cal_tripod_kord'],
     'ru90': ['deployable_50cal_tripod_kord'],
@@ -1631,6 +1674,7 @@ C['HMG_TEMPLATES_DUMMY'] = {
     'ger': ['deployable_50cal_tripod_m2_dummy'],
     'ch': ['deployable_50cal_tripod_type85_dummy'],
     'mec': ['deployable_50cal_tripod_kord_dummy'],
+    'saf': ['deployable_50cal_tripod_kord_dummy'],
     'pl': ['deployable_50cal_tripod_kord_dummy'],
     'ru': ['deployable_50cal_tripod_kord_dummy'],
     'ru90': ['deployable_50cal_tripod_kord_dummy'],
@@ -1666,6 +1710,7 @@ C['TOW_TEMPLATES'] = {
     'ger': ['deployable_milan_mira'],
     'ch': ['deployable_hj8'],
     'mec': ['deployable_milan'],
+    'saf': ['deployable_milan', 'deployable_kornet'],
     'pl': ['deployable_spike'],
     'ru': ['deployable_kornet'],
     'ru90': ['deployable_spg9'],
@@ -1696,6 +1741,7 @@ C['TOW_TEMPLATES_DUMMY'] = {
     'ger': ['deployable_milan_mira_dummy'],
     'ch': ['deployable_hj8_dummy'],
     'mec': ['deployable_milan_dummy'],
+    'saf': ['deployable_milan_dummy'],
     'pl': ['deployable_spike_dummy'],
     'ru': ['deployable_kornet_dummy'],
     'ru90': ['deployable_spg9_dummy'],
@@ -1728,6 +1774,7 @@ C['MORTAR_TEMPLATES'] = {
     'ger': ['deployable_mortar_m252'],
     'ch': ['deployable_mortar_pp87'],
     'mec': ['deployable_mortar_m252'],
+    'saf': ['deployable_mortar_2b141_podnos'],
     'pl': ['deployable_mortar_m252'],
     'ru': ['deployable_mortar_2b141_podnos'],
     'ru90': ['deployable_mortar_2b141_podnos'],
@@ -1765,6 +1812,7 @@ C['MORTAR_TEMPLATES_DUMMY'] = {
     'ger': ['deployable_mortar_m252_dummy'],
     'ch': ['deployable_mortar_m252_dummy'],
     'mec': ['deployable_mortar_m252_dummy'],
+    'saf': ['deployable_mortar_m252_dummy'],
     'pl': ['deployable_mortar_m252_dummy'],
     'ru': ['deployable_mortar_m252_dummy'],
     'ru90': ['deployable_mortar_m252_dummy'],
@@ -1801,6 +1849,7 @@ C['FOXHOLE_TEMPLATES'] = {
     'ger': ['deployable_foxhole'],
     'ch': ['deployable_foxhole'],
     'mec': ['deployable_foxhole'],
+    'saf': ['deployable_foxhole'],
     'pl': ['deployable_foxhole'],
     'ru': ['deployable_foxhole'],
     'ru90': ['deployable_foxhole'],
@@ -1834,6 +1883,7 @@ C['FOXHOLE_TEMPLATES_DUMMY'] = {
     'ger': ['deployable_foxhole_dummy'],
     'ch': ['deployable_foxhole_dummy'],
     'mec': ['deployable_foxhole_dummy'],
+    'saf': ['deployable_foxhole_dummy'],
     'pl': ['deployable_foxhole_dummy'],
     'ru': ['deployable_foxhole_dummy'],
     'ru90': ['deployable_foxhole_dummy'],
@@ -1869,6 +1919,7 @@ C['RAZORWIRES_TEMPLATES'] = {
     'ger': ['deployable_razorwire'],
     'ch': ['deployable_razorwire'],
     'mec': ['deployable_razorwire'],
+    'saf': ['deployable_razorwire'],
     'pl': ['deployable_razorwire'],
     'ru': ['deployable_razorwire'],
     'ru90': ['deployable_razorwire'],
@@ -1901,6 +1952,7 @@ C['RAZORWIRES_TEMPLATES_DUMMY'] = {
     'ger': ['deployable_razorwire_dummy'],
     'ch': ['deployable_razorwire_dummy'],
     'mec': ['deployable_razorwire_dummy'],
+    'saf': ['deployable_razorwire_dummy'],
     'pl': ['deployable_razorwire_dummy'],
     'ru': ['deployable_razorwire_dummy'],
     'ru90': ['deployable_razorwire_dummy'],
@@ -1979,6 +2031,7 @@ C['SANDBAGS_TEMPLATES'] = {
     'ger': ['deployable_sandbags_5m'],
     'ch': ['deployable_sandbags_5m'],
     'mec': ['deployable_sandbags_5m'],
+    'saf': ['deployable_sandbags_5m'],
     'pl': ['deployable_sandbags_5m'],
     'ru': ['deployable_sandbags_5m'],
     'ru90': ['deployable_sandbags_5m'],
@@ -2012,6 +2065,7 @@ C['SANDBAGS_TEMPLATES_DUMMY'] = {
     'ger': ['deployable_sandbags_5m_dummy'],
     'ch': ['deployable_sandbags_5m_dummy'],
     'mec': ['deployable_sandbags_5m_dummy'],
+    'saf': ['deployable_sandbags_5m_dummy'],
     'pl': ['deployable_sandbags_5m_dummy'],
     'ru': ['deployable_sandbags_5m_dummy'],
     'ru90': ['deployable_sandbags_5m_dummy'],
@@ -2167,6 +2221,7 @@ C['TEAM_NAME'] = {
     "cf": "The Canadian Forces",
     "ch": "The Chinese Forces",
     "mec": "The MEC Forces",
+    "saf": "Syrian Arab Armed Forces",
     "gb": "The British Forces",
     "ger": "The German Forces",
     "pl": "The Polish Forces",
