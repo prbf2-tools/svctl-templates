@@ -27,6 +27,15 @@ except:
     realitydebug.errorMessage()
 {{- end }}
 
+{{- if .Values.firstFlag }}
+try:
+    import extra_firstflag
+    extra_firstflag.init()
+except:
+    import realitydebug
+    realitydebug.errorMessage()
+{{- end }}
+
 {{- if .Values.password }}
   {{- with .Values.debugPlayers }}
 import realitydebug

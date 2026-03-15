@@ -372,3 +372,7 @@ acsysCustomTypes:
 # Extra: DoD Kills notifications
 dodKills:
   enabled: false
+
+# Extra: First flag notifications
+firstFlag:
+  enabled: false
