@@ -7,7 +7,7 @@ import realitytimer as rtimer
 
 g_first_flags = {1: [], 2: []}
 
-PROTECTION_TIME = {{ .Values.firstFlag.protectionTime}}
+PROTECTION_TIME = 10 * 60  # 10 minutes
 
 
 def init():

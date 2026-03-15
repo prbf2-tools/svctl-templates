@@ -376,4 +376,3 @@ dodKills:
 # Extra: First flag notifications
 firstFlag:
   enabled: false
-  protectionTime: 600 # seconds
