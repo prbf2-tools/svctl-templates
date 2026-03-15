@@ -9,23 +9,22 @@ def init():
 
 
 def onPlayerEnemyKilled(victim, attacker, weapon, assists, obj):
-    try:
-        attackerVehicle = attacker.getVehicle()
-        victimVehicle = victim.getVehicle()
-        victimPosition = victimVehicle.getPosition()
-    except:
+    if victim.getVehicle():
+        victimPosition = victim.getVehicle().getPosition()
+        if rzones.getPointDODs(victimPosition, victim.getTeam(), (rzones.ALL,)):
+            return
+    else:
         return
 
-    team = victim.getTeam()
-    if len(rzones.getPointDODs(victimPosition, team, (rzones.ALL,))) == 0:
-        return
-
-    distance = int(
-        rcore.getVectorDistance(
-            attackerVehicle.getPosition(),
-            victimPosition
+    distance = "?"
+    if attacker.getVehicle() and victim.getVehicle():
+        distance = int(
+            rcore.getVectorDistance(
+                attacker.getVehicle().getPosition(),
+                victim.getVehicle().getPosition()
+            )
         )
-    )
+
     radmin.adminPM("DODKILL: %s [%s : %s m] %s" % (
         attacker.getName(), weapon, distance, victim.getName()
     ), None, history=False)

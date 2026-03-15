@@ -7,7 +7,7 @@ import realitytimer as rtimer
 import realityserver
 
 
-g_first_flags = {1: [], 2: []}
+g_first_flags = {1: None, 2: None}
 
 PROTECTION_TIME = 10 * 60  # 10 minutes
 
@@ -38,25 +38,25 @@ def unregisterHandlers(data=None):
 
 def buildFirstFlags():
     global g_first_flags
-    g_first_flags = {1: [], 2: []}
+    g_first_flags = {1: None, 2: None}
 
-    sgid_groups = {}
+    sgids = []
     for cp in rcore.getControlPoints():
         if cp.cp_getParam('unableToChangeTeam') == 1:
             continue
-        sgid_groups.setdefault(cp.sgid, []).append(cp.sgid)
+        sgids.append(cp.sgid)
 
-    if not sgid_groups:
+    if not sgids:
         return
 
-    sgids = sorted(sgid_groups.keys())
+    sgids = sorted(sgids)
 
     # Team 1 advances from low sgid toward high sgid:
     # their first flag to capture is the lowest sgid group
     # Team 2 advances from high sgid toward low sgid:
     # their first flag to capture is the highest sgid group
-    g_first_flags[1] = sgid_groups[sgids[0]]
-    g_first_flags[2] = sgid_groups[sgids[-1]]
+    g_first_flags[1] = sgids[0]
+    g_first_flags[2] = sgids[-1]
 
 
 def onEnterControlPoint(player, cp):
@@ -69,16 +69,15 @@ def onEnterControlPoint(player, cp):
 
     enemyTeam = 1 if team == 2 else 2
 
-    if cp.sgid not in g_first_flags[enemyTeam]:
+    if cp.sgid != g_first_flags[enemyTeam]:
         return
 
     if gpm.isCPCapturableByTeam(cp, team):
         return
 
     # Player entered the first flag of the opposing team's main base side
-    squad = player.getSquadId()
-    radmin.adminPM("FIRSTFLAG: %s [team %s sq %s] entered first flag %s" % (
-        player.getName(), team, squad, cp.templateName
+    radmin.adminPM("FIRSTFLAG: %s (%s, %s) entered first flag %s" % (
+        player.getName(), rcore.getTeamName(team), player.getSquadId(), cp.text
     ), None, history=False)
 
 
@@ -86,31 +85,26 @@ def onPlayerEnemyKilled(victim, attacker, weapon, assists, obj):
     victimTeam = victim.getTeam()
     attackerTeam = attacker.getTeam()
 
-    try:
-        victimCP = victim.insideCP
-        if victimCP is None:
-            return
-    except:
+    gpm = rgamemode.getCurrentGameMode()
+
+    victimCP = gpm.getOccupyingCP(victim)
+    if not victimCP:
         return
 
-    if victimCP.sgid not in g_first_flags[victimTeam]:
+    if gpm.isCPCapturableByTeam(victimCP, attackerTeam):
         return
 
-    if victimCP.cp_getParam('allowCaptureByTeam', attackerTeam):
+    if victimCP.sgid != g_first_flags[victimTeam]:
         return
 
-    try:
-        attackerVehicle = attacker.getVehicle()
-        victimVehicle = victim.getVehicle()
-    except:
-        return
-
-    distance = int(
-        rcore.getVectorDistance(
-            attackerVehicle.getPosition(),
-            victimVehicle.getPosition()
+    distance = "?"
+    if attacker.getVehicle() and victim.getVehicle():
+        distance = int(
+            rcore.getVectorDistance(
+                attacker.getVehicle().getPosition(),
+                victim.getVehicle().getPosition()
+            )
         )
-    )
 
     radmin.adminPM("FIRSTFLAGKILL: %s [%s : %s m] %s" % (
         attacker.getName(), weapon, distance, victim.getName()
