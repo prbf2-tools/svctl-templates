@@ -3,6 +3,7 @@ import host
 import realityadmin as radmin
 import realitycore as rcore
 import realitytimer as rtimer
+import realityserver
 
 
 g_first_flags = {1: [], 2: []}
@@ -16,13 +17,17 @@ def init():
 
 def onGameStatusChanged(status):
     if status == bf2.GameStatus.Playing:
+        unregisterHandlers()
         buildFirstFlags()
+
         host.registerHandler('EnterControlPoint', onEnterControlPoint)
+        host.registerHandler('PlayerEnemyKilled', onPlayerEnemyKilled)
 
-        rtimer.fireOnce(unregisterHandlers, PROTECTION_TIME)
+        rtimer.fireOnce(unregisterHandlers, realityserver.C(
+            'STARTDELAY') + PROTECTION_TIME)
 
 
-def unregisterHandlers():
+def unregisterHandlers(data=None):
     host.unregisterHandler(onEnterControlPoint)
     host.unregisterHandler(onPlayerEnemyKilled)
 
@@ -61,6 +66,9 @@ def onEnterControlPoint(player, cp):
     if cp.sgid not in g_first_flags[enemyTeam]:
         return
 
+    if cp.cp_getParam('allowCaptureByTeam', team):
+        return
+
     # Player entered the first flag of the opposing team's main base side
     squad = player.getSquadId()
     radmin.adminPM("FIRSTFLAG: %s [team %s sq %s] entered first flag %s" % (
@@ -69,14 +77,35 @@ def onEnterControlPoint(player, cp):
 
 
 def onPlayerEnemyKilled(victim, attacker, weapon, assists, obj):
-    if victim.isInsideCP and victim.isInsideCP.sgid in g_first_flags[victim.getTeam()]:
-        distance = int(
-            rcore.getVectorDistance(
-                attacker.getVehicle().getPosition(),
-                victim.getVehicle().getPosition()
-            )
-        )
+    victimTeam = victim.getTeam()
+    attackerTeam = attacker.getTeam()
 
-        radmin.adminPM("FIRSTFLAGKILL: %s [%s : %s m] %s" % (
-            attacker.getName(), weapon, distance, victim.getName()
-        ), None, history=False)
+    try:
+        victimCP = victim.insideCP
+        if victimCP is None:
+            return
+    except:
+        return
+
+    if victimCP.sgid not in g_first_flags[victimTeam]:
+        return
+
+    if victimCP.cp_getParam('allowCaptureByTeam', attackerTeam):
+        return
+
+    try:
+        attackerVehicle = attacker.getVehicle()
+        victimVehicle = victim.getVehicle()
+    except:
+        return
+
+    distance = int(
+        rcore.getVectorDistance(
+            attackerVehicle.getPosition(),
+            victimVehicle.getPosition()
+        )
+    )
+
+    radmin.adminPM("FIRSTFLAGKILL: %s [%s : %s m] %s" % (
+        attacker.getName(), weapon, distance, victim.getName()
+    ), None, history=False)
