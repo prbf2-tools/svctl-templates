@@ -9,7 +9,7 @@ import realityserver
 
 g_first_flags = {1: None, 2: None}
 
-PROTECTION_TIME = 10 * 60  # 10 minutes
+PROTECTION_TIME = {{ .Values.firstFlag.protectionTime }}
 
 
 def init():

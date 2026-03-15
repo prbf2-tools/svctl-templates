@@ -27,7 +27,7 @@ templates:
     dest: mods/pr/python/game/extra_vehicletypes.py
   - src: templates/extra/extra_dodkills.py
     dest: mods/pr/python/game/extra_dodkills.py
-  - src: templates/extra/extra_firstflag.py
+  - src: templates/extra/extra_firstflag.py.tpl
     dest: mods/pr/python/game/extra_firstflag.py
 
 defaults:
