@@ -1,6 +1,7 @@
 import bf2
 import host
 import realityadmin as radmin
+import realitygamemode as rgamemode
 import realitycore as rcore
 import realitytimer as rtimer
 import realityserver
@@ -17,6 +18,9 @@ def init():
 
 def onGameStatusChanged(status):
     if status == bf2.GameStatus.Playing:
+        if rgamemode.getCurrentGameModeType() != "aas":
+            return
+
         unregisterHandlers()
         buildFirstFlags()
 
@@ -58,6 +62,8 @@ def buildFirstFlags():
 def onEnterControlPoint(player, cp):
     team = player.getTeam()
 
+    gpm = rgamemode.getCurrentGameMode()
+
     if cp.cp_getParam('team') == team:
         return
 
@@ -66,7 +72,7 @@ def onEnterControlPoint(player, cp):
     if cp.sgid not in g_first_flags[enemyTeam]:
         return
 
-    if cp.cp_getParam('allowCaptureByTeam', team):
+    if gpm.isCPCapturableByTeam(cp, team):
         return
 
     # Player entered the first flag of the opposing team's main base side
