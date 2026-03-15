@@ -16,7 +16,7 @@ def onPlayerEnemyKilled(victim, attacker, weapon, assists, obj):
     else:
         return
 
-    distance = "?"
+    distance = 0
     if attacker.getVehicle() and victim.getVehicle():
         distance = int(
             rcore.getVectorDistance(

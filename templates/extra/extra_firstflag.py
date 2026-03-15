@@ -97,7 +97,7 @@ def onPlayerEnemyKilled(victim, attacker, weapon, assists, obj):
     if victimCP.sgid != g_first_flags[victimTeam]:
         return
 
-    distance = "?"
+    distance = 0
     if attacker.getVehicle() and victim.getVehicle():
         distance = int(
             rcore.getVectorDistance(
