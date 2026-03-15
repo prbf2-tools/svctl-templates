@@ -18,7 +18,7 @@ except:
     realitydebug.errorMessage()
 {{- end }}
 
-{{- if .Values.dodKills }}
+{{- if and (.Values.dodKills .Values.dodKills.enabled) }}
 try:
     import extra_dodkills
     extra_dodkills.init()
@@ -27,7 +27,7 @@ except:
     realitydebug.errorMessage()
 {{- end }}
 
-{{- if .Values.firstFlag }}
+{{- if and (.Values.firstFlag .Values.firstFlag.enabled) }}
 try:
     import extra_firstflag
     extra_firstflag.init()
