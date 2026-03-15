@@ -17,6 +17,16 @@ except:
     import realitydebug
     realitydebug.errorMessage()
 {{- end }}
+
+{{- if .Values.dodKills }}
+try:
+    import extra_dodkills
+    extra_dodkills.init()
+except:
+    import realitydebug
+    realitydebug.errorMessage()
+{{- end }}
+
 {{- if .Values.password }}
   {{- with .Values.debugPlayers }}
 import realitydebug

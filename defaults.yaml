@@ -368,3 +368,7 @@ acsysCustomTypes:
   #   # use the ID as the squadControls value in acsys.assets
   #   id: 1001 
   #   include: ["civ_atm_technical"]
+
+# Extra: DoD Kills notifications
+dodKills:
+  enabled: false
