@@ -17,15 +17,14 @@ def onPlayerEnemyKilled(victim, attacker, weapon, assists, obj):
         return
 
     if attacker.getVehicle() and victim.getVehicle():
-        distance = int(
-            rcore.getVectorDistance(
-                attacker.getVehicle().getPosition(),
-                victim.getVehicle().getPosition()
-            )
-        )
-
         team = victim.getTeam()
         if rzones.getPointDODs(victim.getPosition(), team, (rzones.ALL,)):
+            distance = int(
+                rcore.getVectorDistance(
+                    attacker.getVehicle().getPosition(),
+                    victim.getVehicle().getPosition()
+                )
+            )
             radmin.adminPM("DODKILL: %s [%s : %s m] %s" % (
                 attacker.getName(), weapon, distance, victim.getName()
             ), None, history=False)
