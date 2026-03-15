@@ -97,7 +97,6 @@ def onPlayerEnemyKilled(victim, attacker, weapon, assists, obj):
     if victimCP.sgid != g_first_flags[victimTeam]:
         return
 
-    distance = 0
     if attacker.getVehicle() and victim.getVehicle():
         distance = int(
             rcore.getVectorDistance(
@@ -106,6 +105,6 @@ def onPlayerEnemyKilled(victim, attacker, weapon, assists, obj):
             )
         )
 
-    radmin.adminPM("FIRSTFLAGKILL: %s [%s : %s m] %s" % (
-        attacker.getName(), weapon, distance, victim.getName()
-    ), None, history=False)
+        radmin.adminPM("FIRSTFLAGKILL: %s [%s : %s m] %s" % (
+            attacker.getName(), weapon, distance, victim.getName()
+        ), None, history=False)

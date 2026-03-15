@@ -16,7 +16,6 @@ def onPlayerEnemyKilled(victim, attacker, weapon, assists, obj):
     else:
         return
 
-    distance = 0
     if attacker.getVehicle() and victim.getVehicle():
         distance = int(
             rcore.getVectorDistance(
@@ -25,6 +24,6 @@ def onPlayerEnemyKilled(victim, attacker, weapon, assists, obj):
             )
         )
 
-    radmin.adminPM("DODKILL: %s [%s : %s m] %s" % (
-        attacker.getName(), weapon, distance, victim.getName()
-    ), None, history=False)
+        radmin.adminPM("DODKILL: %s [%s : %s m] %s" % (
+            attacker.getName(), weapon, distance, victim.getName()
+        ), None, history=False)
